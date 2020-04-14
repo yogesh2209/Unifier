@@ -42,6 +42,7 @@ class ViewController: UIViewController {
             messageContainerView.backgroundColor = UIColor(red: 18/255, green: 18/255, blue: 18/255, alpha: 1)
         }
     }
+    
     @IBOutlet weak var messageLabel: UILabel! {
         didSet {
             messageLabel.backgroundColor = .clear
@@ -52,8 +53,19 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var unicornSelectionImageView: UIImageView! {
+        didSet {
+            unicornSelectionImageView.layer.cornerRadius = 5
+            unicornSelectionImageView.layer.borderColor = UIColor.white.cgColor
+            unicornSelectionImageView.layer.borderWidth = 2
+            unicornSelectionImageView.isUserInteractionEnabled = true
+        }
+    }
+    
     /// Selected Image
-    var selectedImage: UIImage?
+    var editedImage: UIImage?
+    
+    var originalImage: UIImage?
     
     /// AVCaptureSession
     let captureSession = AVCaptureSession()
@@ -69,6 +81,10 @@ class ViewController: UIViewController {
         }
     }
     
+    static var defaultUnicornImage: String = "uinicorn_horn_default"
+    
+    var selectedUnicornImage: String? = nil
+    
     /// Is FaceLines Shown bool
     var isFaceLinesShown: Bool = false
     
@@ -76,6 +92,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setImage(image: ViewController.defaultUnicornImage)
+        addGesture()
         activityIndicator(false)
     }
     
@@ -89,6 +107,37 @@ class ViewController: UIViewController {
             activityIndicator.stopAnimating()
         }
     }
+    
+    private func addGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(unicornImageViewTapped))
+        unicornSelectionImageView.addGestureRecognizer(tap)
+    }
+    
+    @objc func unicornImageViewTapped() {
+        let storyboard = UIStoryboard(name: "UnicornSelectionListViewController", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "UnicornSelectionListViewController") as! UnicornSelectionListViewController
+        viewController.view.backgroundColor = .clear
+        viewController.delegate = self
+        viewController.selectedImage = selectedUnicornImage
+        viewController.modalPresentationStyle = .overCurrentContext
+        present(viewController, animated: true, completion: nil)
+    }
+    
+    func setImage(image: String) {
+        selectedUnicornImage = image
+        DispatchQueue.main.async { [weak self] in
+            self?.unicornSelectionImageView.image = UIImage(named: image)
+            self?.imageView.image = self?.originalImage
+            self?.shouldSaveImage = false
+        }
+    }
+}
+
+//MARK: - UnicornSelectionDelegateProtocol
+extension ViewController: UnicornSelectionDelegateProtocol {
+    func didSelect(image: String) {
+        setImage(image: image)
+    }
 }
 
 // MARK: - UIButton & Actions
@@ -99,8 +148,10 @@ extension ViewController {
     }
     
     @IBAction func saveImageButtonPressed(_ sender: Any) {
-        if shouldSaveImage, let image = selectedImage {
+        if shouldSaveImage, let image = editedImage {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        } else {
+            animateMessageLabel(text: "No new photo to save")
         }
     }
     
@@ -154,13 +205,13 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let editedImage = info[.editedImage] as? UIImage {
-            selectedImage = editedImage
+            originalImage = editedImage
             imageView.image = editedImage
             picker.dismiss(animated: true, completion: { [weak self] in
                 self?.processImage()
             })
-        } else if let originalImage = info[.originalImage] as? UIImage {
-            selectedImage = originalImage
+        } else if let image = info[.originalImage] as? UIImage {
+            originalImage = image
             imageView.image = originalImage
             picker.dismiss(animated: true, completion: {
                 DispatchQueue.main.async { [weak self] in
@@ -184,7 +235,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 extension ViewController {
     
     func handleFaceFeatures(request: VNRequest, errror: Error?) {
-        guard let observations = request.results as? [VNFaceObservation], let imageToSend = selectedImage else {
+        guard let observations = request.results as? [VNFaceObservation], let imageToSend = originalImage else {
             return
         }
         
@@ -196,7 +247,7 @@ extension ViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.activityIndicator(false)
                 self?.imageView.image = i
-                self?.selectedImage = i
+                self?.editedImage = i
                 self?.shouldSaveImage = true
             }
         } else {
@@ -206,7 +257,7 @@ extension ViewController {
     }
     
     func processImage() {
-        guard let image = selectedImage else {
+        guard let image = originalImage else {
             return
         }
         

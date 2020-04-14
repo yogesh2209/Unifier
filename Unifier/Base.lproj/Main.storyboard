@@ -59,6 +59,13 @@
                                     <constraint firstItem="3sQ-NH-G4e" firstAttribute="centerX" secondItem="HbL-Du-qps" secondAttribute="centerX" id="mKM-eN-Lng"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="imj-Ni-QMd">
+                                <rect key="frame" x="304" y="786" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Kfj-DH-6v0"/>
+                                    <constraint firstAttribute="height" constant="60" id="UMb-8h-MXe"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -71,8 +78,10 @@
                             <constraint firstItem="AWj-d4-gJe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="cDc-Ei-i8z"/>
                             <constraint firstItem="grA-Da-4uF" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="dFI-X8-F5g"/>
                             <constraint firstItem="Mgj-dn-o9d" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eA3-Nl-cJA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="imj-Ni-QMd" secondAttribute="bottom" constant="16" id="jGa-IR-aeT"/>
                             <constraint firstAttribute="bottom" secondItem="AWj-d4-gJe" secondAttribute="bottom" constant="50" id="tXg-Lh-DSY"/>
                             <constraint firstItem="grA-Da-4uF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="us5-x1-t8e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="imj-Ni-QMd" secondAttribute="trailing" constant="50" id="ywW-Q6-sDE"/>
                             <constraint firstItem="hJM-ke-Avu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zKy-ui-ru9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -84,6 +93,7 @@
                         <outlet property="messageLabel" destination="3sQ-NH-G4e" id="0wG-u4-lRZ"/>
                         <outlet property="openCameraButton" destination="hJM-ke-Avu" id="sdE-OP-cKX"/>
                         <outlet property="saveImageButton" destination="AWj-d4-gJe" id="hbq-Mg-LyF"/>
+                        <outlet property="unicornSelectionImageView" destination="imj-Ni-QMd" id="c3c-c7-KLo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
