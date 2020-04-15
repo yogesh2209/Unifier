@@ -42,7 +42,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HbL-Du-qps">
-                                <rect key="frame" x="199" y="75" width="16" height="16"/>
+                                <rect key="frame" x="199" y="126" width="16" height="16"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sQ-NH-G4e">
                                         <rect key="frame" x="8" y="8" width="0.0" height="0.0"/>
@@ -66,19 +66,46 @@
                                     <constraint firstAttribute="height" constant="60" id="UMb-8h-MXe"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6u-U7-fzA">
+                                <rect key="frame" x="348" y="52.5" width="50" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="kY0-W3-gyZ"/>
+                                    <constraint firstAttribute="width" constant="50" id="sbV-QG-2CR"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="info.circle.fill" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="infoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F72-2w-Ay0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UniFier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBS-1U-KIU">
+                                <rect key="frame" x="162.5" y="44" width="89.5" height="66"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="RBS-1U-KIU" firstAttribute="centerY" secondItem="Q6u-U7-fzA" secondAttribute="centerY" id="8bQ-TB-1Si"/>
                             <constraint firstItem="Mgj-dn-o9d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Ow-cG-Lqg"/>
+                            <constraint firstItem="RBS-1U-KIU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BpZ-u1-jdg"/>
                             <constraint firstItem="HbL-Du-qps" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EQn-wW-mDv"/>
                             <constraint firstItem="grA-Da-4uF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="EuY-UU-C2b"/>
-                            <constraint firstItem="HbL-Du-qps" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="31" id="Qzc-2F-jTT"/>
+                            <constraint firstItem="HbL-Du-qps" firstAttribute="top" secondItem="RBS-1U-KIU" secondAttribute="bottom" constant="16" id="Jo4-lR-f86"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Q6u-U7-fzA" secondAttribute="trailing" constant="16" id="Tk4-g9-rLw"/>
+                            <constraint firstItem="3sQ-NH-G4e" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-32" id="YO9-6B-x1f"/>
                             <constraint firstAttribute="bottom" secondItem="hJM-ke-Avu" secondAttribute="bottom" constant="50" id="ZnZ-gB-VrQ"/>
                             <constraint firstAttribute="bottom" secondItem="grA-Da-4uF" secondAttribute="bottom" id="aMJ-hX-xdO"/>
                             <constraint firstItem="AWj-d4-gJe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="cDc-Ei-i8z"/>
                             <constraint firstItem="grA-Da-4uF" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="dFI-X8-F5g"/>
                             <constraint firstItem="Mgj-dn-o9d" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eA3-Nl-cJA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="imj-Ni-QMd" secondAttribute="bottom" constant="16" id="jGa-IR-aeT"/>
+                            <constraint firstItem="Q6u-U7-fzA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="52" id="n4R-iy-kfo"/>
+                            <constraint firstItem="RBS-1U-KIU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nLk-3r-7Eq"/>
                             <constraint firstAttribute="bottom" secondItem="AWj-d4-gJe" secondAttribute="bottom" constant="50" id="tXg-Lh-DSY"/>
                             <constraint firstItem="grA-Da-4uF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="us5-x1-t8e"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="imj-Ni-QMd" secondAttribute="trailing" constant="50" id="ywW-Q6-sDE"/>
@@ -89,10 +116,12 @@
                     <connections>
                         <outlet property="activityIndicator" destination="Mgj-dn-o9d" id="RoW-MI-FdZ"/>
                         <outlet property="imageView" destination="grA-Da-4uF" id="Alx-4i-siV"/>
+                        <outlet property="infoButton" destination="Q6u-U7-fzA" id="sMq-NL-p0g"/>
                         <outlet property="messageContainerView" destination="HbL-Du-qps" id="deW-SN-3Jj"/>
                         <outlet property="messageLabel" destination="3sQ-NH-G4e" id="0wG-u4-lRZ"/>
                         <outlet property="openCameraButton" destination="hJM-ke-Avu" id="sdE-OP-cKX"/>
                         <outlet property="saveImageButton" destination="AWj-d4-gJe" id="hbq-Mg-LyF"/>
+                        <outlet property="titleLabel" destination="RBS-1U-KIU" id="xfI-th-oYH"/>
                         <outlet property="unicornSelectionImageView" destination="imj-Ni-QMd" id="c3c-c7-KLo"/>
                     </connections>
                 </viewController>
@@ -101,4 +130,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="info.circle.fill" catalog="system" width="64" height="60"/>
+    </resources>
 </document>

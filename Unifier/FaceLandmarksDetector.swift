@@ -21,11 +21,15 @@ public class FaceLandmarksDetector {
     /// Bounding Rect
     var boundingRect: CGRect?
     
-    func addFaceLandmarksToImage(_ faces: [VNFaceObservation], sourceImage: UIImage, isFaceLinesShown: Bool = false) -> UIImage? {
+    func addFaceLandmarksToImage(_ faces: [VNFaceObservation], sourceImage: UIImage, isFaceLinesShown: Bool = false, selectedUnicornImage: String?) -> UIImage? {
+        editedImage = sourceImage
+        self.sourceImage = sourceImage
         
         for index in 0..<faces.count {
-            let face = faces[index]
-            editedImage = drawOnImage(source: sourceImage, face: face, isFaceLinesShown: isFaceLinesShown)
+            autoreleasepool {
+             let face = faces[index]
+              editedImage = drawOnImage(source: editedImage!, face: face, isFaceLinesShown: isFaceLinesShown, selectedUnicornImage: selectedUnicornImage)
+            }
         }
         
         // End drawing context
@@ -34,21 +38,23 @@ public class FaceLandmarksDetector {
         return editedImage
     }
     
-    private func drawOnImage(source: UIImage, face: VNFaceObservation, isFaceLinesShown: Bool = false) -> UIImage {
+    private func drawOnImage(source: UIImage, face: VNFaceObservation, isFaceLinesShown: Bool = false, selectedUnicornImage: String?) -> UIImage {
         
         /// Begin image context
-        UIGraphicsBeginImageContextWithOptions(source.size, false, 1)
+        UIGraphicsBeginImageContextWithOptions(source.size, true, 0)
+        
+        source.draw(in: CGRect(x: 0, y: 0, width: source.size.width, height: source.size.height))
         
         /// context
-        let context = UIGraphicsGetCurrentContext()!
-        context.translateBy(x: 0.0, y: source.size.height)
-        context.scaleBy(x: 1.0, y: -1.0)
+        let context = UIGraphicsGetCurrentContext()
+        context?.translateBy(x: 0.0, y: source.size.height)
+        context?.scaleBy(x: 1.0, y: -1.0)
         
         /// Set properties
-        context.setLineJoin(.round)
-        context.setLineCap(.round)
-        context.setShouldAntialias(true)
-        context.setAllowsAntialiasing(true)
+        context?.setLineJoin(.round)
+        context?.setLineCap(.round)
+        context?.setShouldAntialias(true)
+        context?.setAllowsAntialiasing(true)
         
         let x = face.boundingBox.origin.x * source.size.width
         let y = face.boundingBox.origin.y * source.size.height
@@ -57,16 +63,15 @@ public class FaceLandmarksDetector {
         
         let faceRect = CGRect(x: x, y: y, width: w, height: h)
         self.boundingRect = faceRect
-        self.sourceImage = source
         
         /// Draw bound rect
         if isFaceLinesShown {
-            context.saveGState()
-            context.setStrokeColor(UIColor.red.cgColor)
-            context.setLineWidth(8.0)
-            context.addRect(faceRect)
-            context.drawPath(using: .stroke)
-            context.restoreGState()
+            context?.saveGState()
+            context?.setStrokeColor(UIColor.red.cgColor)
+            context?.setLineWidth(8.0)
+            context?.addRect(faceRect)
+            context?.drawPath(using: .stroke)
+            context?.restoreGState()
         }
         
         if let faceContour = face.landmarks?.faceContour {
@@ -109,16 +114,16 @@ public class FaceLandmarksDetector {
         let perpendicularDistance = (sqrt(3) * distance) / 2
         
         /// Adding Image
-        let imageToAttach = UIImage(named: "uinicorn_horn.png") //TODO update
+        let imageToAttach = UIImage(named: selectedUnicornImage ?? ViewController.defaultUnicornImage)
         
         let rotatedImage = imageToAttach?.rotate(radians: CGFloat(truncating: face.yaw ?? 0.0))
-        let imageRect = CGRect(x: third.x - w/2, y: third.y - perpendicularDistance/4, width: w, height: h)
+        let imageRect = CGRect(x: third.x - (w/2) - (w * 0.125), y: (third.y - perpendicularDistance/4), width: w * 1.25, height: h * 1.25)
         /// If we get rotated image back
         if let image = rotatedImage {
-            context.draw((image.cgImage)!, in: imageRect)
+            context?.draw((image.cgImage)!, in: imageRect)
         } else {
             if let im = imageToAttach {
-                context.draw((im.cgImage)!, in: imageRect)
+                context?.draw((im.cgImage)!, in: imageRect)
             }  else {
                 return UIImage()
             }
@@ -175,14 +180,14 @@ public class FaceLandmarksDetector {
 // MARK: - Draw Feature/Lines Logic
 extension FaceLandmarksDetector {
     
-    func drawFeature(_ feature: VNFaceLandmarkRegion2D, context: CGContext, shouldShowFaceLines: Bool, color: UIColor, close: Bool = false) {
+    func drawFeature(_ feature: VNFaceLandmarkRegion2D, context: CGContext?, shouldShowFaceLines: Bool, color: UIColor, close: Bool = false) {
         
         guard shouldShowFaceLines, let sourceImageToUse = self.editedImage,  let boundingRectToUse = self.boundingRect else {
             return
         }
         
-        context.setStrokeColor(color.cgColor)
-        context.setFillColor(color.cgColor)
+        context?.setStrokeColor(color.cgColor)
+        context?.setFillColor(color.cgColor)
         
         let rectWidth = sourceImageToUse.size.width * boundingRectToUse.size.width
         let rectHeight = sourceImageToUse.size.height * boundingRectToUse.size.height
@@ -193,24 +198,24 @@ extension FaceLandmarksDetector {
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
                 NSAttributedString.Key.foregroundColor: UIColor.white
             ]
-            context.saveGState()
+            context?.saveGState()
             /// Rotate to draw numbers
-            context.translateBy(x: 0.0, y: sourceImageToUse.size.height)
-            context.scaleBy(x: 1.0, y: -1.0)
+            context?.translateBy(x: 0.0, y: sourceImageToUse.size.height)
+            context?.scaleBy(x: 1.0, y: -1.0)
             let mp = CGPoint(x: boundingRectToUse.origin.x * sourceImageToUse.size.width + point.x * rectWidth, y: sourceImageToUse.size.height - (boundingRectToUse.origin.y * sourceImageToUse.size.height + point.y * rectHeight))
-            context.fillEllipse(in: CGRect(origin: CGPoint(x: mp.x-2.0, y: mp.y-2), size: CGSize(width: 4.0, height: 4.0)))
+            context?.fillEllipse(in: CGRect(origin: CGPoint(x: mp.x-2.0, y: mp.y-2), size: CGSize(width: 4.0, height: 4.0)))
             if let index = feature.normalizedPoints.firstIndex(of: point) {
                 String(format: "%d", index).draw(at: mp, withAttributes: textFontAttributes)
             }
-            context.restoreGState()
+            context?.restoreGState()
         }
         
         /// Get all points and map them and make lines
         let mappedPoints = feature.normalizedPoints.map { CGPoint(x: boundingRectToUse.origin.x * sourceImageToUse.size.width + $0.x * rectWidth, y: boundingRectToUse.origin.y * sourceImageToUse.size.height + $0.y * rectHeight) }
-        context.addLines(between: mappedPoints)
+        context?.addLines(between: mappedPoints)
         if close, let first = mappedPoints.first, let lats = mappedPoints.last {
-            context.addLines(between: [lats, first])
+            context?.addLines(between: [lats, first])
         }
-        context.strokePath()
+        context?.strokePath()
     }
 }

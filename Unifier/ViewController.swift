@@ -10,6 +10,7 @@ import UIKit
 import CoreMedia
 import Vision
 import AVFoundation
+import StoreKit
 
 class ViewController: UIViewController {
     
@@ -43,6 +44,13 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var infoButton: UIButton! {
+        didSet {
+            infoButton.backgroundColor = .clear
+            infoButton.alpha = 1
+        }
+    }
+    
     @IBOutlet weak var messageLabel: UILabel! {
         didSet {
             messageLabel.backgroundColor = .clear
@@ -62,16 +70,22 @@ class ViewController: UIViewController {
         }
     }
     
-    /// Selected Image
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    /// edited Image
     var editedImage: UIImage?
     
+    /// original image picked
     var originalImage: UIImage?
     
     /// AVCaptureSession
     let captureSession = AVCaptureSession()
     
     /// FaceLandmarksDetector
-    let faceDetector = FaceLandmarksDetector()
+    var faceDetector: FaceLandmarksDetector?
+    
+    /// boolean to avoid updating image again and again at same time
+    var isUpdatingImage: Bool = false
     
     /// Should Save Image - gets true when image gets edited properly
     var shouldSaveImage: Bool = false {
@@ -81,20 +95,25 @@ class ViewController: UIViewController {
         }
     }
     
+    /// default unicorn image
     static var defaultUnicornImage: String = "uinicorn_horn_default"
     
+    /// selected unicorn  image
     var selectedUnicornImage: String? = nil
     
     /// Is FaceLines Shown bool
     var isFaceLinesShown: Bool = false
     
+    /// fade animator
     var messageLabelFadeAnimator: UIViewPropertyAnimator? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        faceDetector = FaceLandmarksDetector()
         setImage(image: ViewController.defaultUnicornImage)
         addGesture()
         activityIndicator(false)
+        animateMessageLabel(text: "Please Upload/Take a picture with your face", delay: 3)
     }
     
     /// Activity Indicator
@@ -137,12 +156,27 @@ class ViewController: UIViewController {
 extension ViewController: UnicornSelectionDelegateProtocol {
     func didSelect(image: String) {
         setImage(image: image)
+        /// we have an original image - process it
+        if let _ = originalImage {
+            self.editedImage = nil
+            self.processImage()
+        }
     }
 }
 
 // MARK: - UIButton & Actions
 
 extension ViewController {
+    
+    @IBAction func infoButtonPressed(_ sender: Any) {
+        let infoAlert = UIAlertController.noActionPrompt(title: "About UniFier", message: "This app is designed for Unicorn lovers. People that love unicorn horn. It UNI-FIES you for the rest of your life by adding a unicorn horn on your forehead.") {
+            // do nothing
+        }
+        
+        infoAlert.configurePopOver(for: self.infoButton)
+        self.present(infoAlert, animated: true, completion: nil)
+    }
+    
     @IBAction func openCameraButtonPressed(_ sender: Any) {
         openCameraButtonPressedAction()
     }
@@ -235,13 +269,16 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 extension ViewController {
     
     func handleFaceFeatures(request: VNRequest, errror: Error?) {
-        guard let observations = request.results as? [VNFaceObservation], let imageToSend = originalImage else {
+        guard let observations = request.results as? [VNFaceObservation], !observations.isEmpty, let imageToSend = originalImage else {
+            animateMessageLabel(text: "No Face detected")
+            activityIndicator(false)
             return
         }
         
         activityIndicator(true)
-        let finalImage = faceDetector.addFaceLandmarksToImage(observations, sourceImage: imageToSend, isFaceLinesShown: isFaceLinesShown)
+        let finalImage = faceDetector?.addFaceLandmarksToImage(observations, sourceImage: imageToSend, isFaceLinesShown: isFaceLinesShown, selectedUnicornImage: selectedUnicornImage)
         shouldSaveImage =  true
+        
         //// Image updated
         if let i = finalImage, let _ = i.cgImage {
             DispatchQueue.main.async { [weak self] in
@@ -254,12 +291,17 @@ extension ViewController {
             animateMessageLabel(text: "Image did not update")
             self.activityIndicator(false)
         }
+        
+        /// set isupdating image to false
+        isUpdatingImage = false
     }
     
     func processImage() {
-        guard let image = originalImage else {
+        guard let image = originalImage, !isUpdatingImage else {
             return
         }
+        
+        isUpdatingImage = true
         
         var orientation: CGImagePropertyOrientation
         
@@ -290,7 +332,7 @@ extension ViewController {
 //MARK: - MessageLabel Animation
 extension ViewController {
     
-    private func animateMessageLabel(text: String, completion: (()->Void)? = nil) {
+    private func animateMessageLabel(text: String, delay: Double = 1, completion: (()->Void)? = nil) {
         
         guard !(messageLabelFadeAnimator?.isRunning ?? false) else {
             completion?()
@@ -309,7 +351,7 @@ extension ViewController {
             
         }) { [weak self] (pos) in
             
-            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0.5, options: [.beginFromCurrentState], animations: {
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: delay, options: [.beginFromCurrentState], animations: {  [weak self] in
                 
                 self?.messageContainerView.alpha = 0.0
                 

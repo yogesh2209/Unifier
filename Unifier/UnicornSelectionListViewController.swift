@@ -18,7 +18,7 @@ class UnicornSelectionListViewController: UIViewController {
     @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var images: [String] = [ViewController.defaultUnicornImage, "a", "b", "c", "d"]
+    var images: [String] = [ViewController.defaultUnicornImage, "u1", "u2", "u3", "u4", "u5", "u6", "u7", "u8", "u9", "u10", "u11", "u12"]
     
     var selectedImage: String? = nil
     
@@ -32,9 +32,9 @@ class UnicornSelectionListViewController: UIViewController {
     
     func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
-               layout.scrollDirection = .vertical
-               collectionView.setCollectionViewLayout(layout, animated: true)
-               collectionView.reloadData()
+        layout.scrollDirection = .vertical
+        collectionView.setCollectionViewLayout(layout, animated: true)
+        collectionView.reloadData()
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -42,8 +42,14 @@ class UnicornSelectionListViewController: UIViewController {
     }
     
     @IBAction func selectButtonPressed(_ sender: Any) {
-        delegate?.didSelect(image: (selectedImage ?? ViewController.defaultUnicornImage))
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.delegate?.didSelect(image: (self.selectedImage ?? ViewController.defaultUnicornImage))
+        })
     }
 }
 
@@ -74,7 +80,7 @@ extension UnicornSelectionListViewController: UICollectionViewDataSource {
             cell.imageView.layer.borderWidth = 0
             cell.imageView.layer.cornerRadius = 0
         }
-            
+        
         return cell
     }
 }
