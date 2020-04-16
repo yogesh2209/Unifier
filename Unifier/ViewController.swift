@@ -18,7 +18,8 @@ class ViewController: UIViewController {
         didSet {
             saveImageButton.setImage(UIImage(named: "saveImage"), for: .normal)
             saveImageButton.tintColor = .white
-            saveImageButton.isHidden = true
+            saveImageButton.isHidden = false
+            saveImageButton.isEnabled = false
         }
     }
     
@@ -91,7 +92,6 @@ class ViewController: UIViewController {
     var shouldSaveImage: Bool = false {
         didSet {
             saveImageButton.isEnabled = shouldSaveImage
-            saveImageButton.isHidden = !shouldSaveImage
         }
     }
     
@@ -113,7 +113,7 @@ class ViewController: UIViewController {
         setImage(image: ViewController.defaultUnicornImage)
         addGesture()
         activityIndicator(false)
-        animateMessageLabel(text: "Please Upload/Take a picture with your face", delay: 3)
+        animateMessageLabel(text: "Please Upload/Take a picture of your face", delay: 3)
     }
     
     /// Activity Indicator
