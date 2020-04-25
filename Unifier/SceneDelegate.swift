@@ -18,6 +18,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        guard let windowToUse = window else {
+            return
+        }
+        
+        /// check if walk through have already been presented
+        if UserDefaults.standard.didPresentWalkThrouh {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainViewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            let navController = UINavigationController(rootViewController: mainViewController)
+            windowToUse.rootViewController = navController
+        } else {
+            let storyboard = UIStoryboard(name: "WalkThroughViewController", bundle: nil)
+            let mainViewController = storyboard.instantiateViewController(withIdentifier: "WalkThroughViewController") as! WalkThroughViewController
+            let navController = UINavigationController(rootViewController: mainViewController)
+            windowToUse.rootViewController = navController
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Unifier" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="Unifier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,7 +137,9 @@
                                 <variation key="widthClass=regular" constant="32"/>
                             </constraint>
                             <constraint firstItem="3sQ-NH-G4e" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-32" id="YO9-6B-x1f"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hJM-ke-Avu" secondAttribute="bottom" constant="16" id="ZnZ-gB-VrQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hJM-ke-Avu" secondAttribute="bottom" constant="16" id="ZnZ-gB-VrQ">
+                                <variation key="widthClass=regular" constant="32"/>
+                            </constraint>
                             <constraint firstAttribute="bottom" secondItem="grA-Da-4uF" secondAttribute="bottom" id="aMJ-hX-xdO"/>
                             <constraint firstItem="1Is-MB-p4w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="c48-9R-PNC">
                                 <variation key="widthClass=regular" constant="32"/>

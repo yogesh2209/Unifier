@@ -121,6 +121,11 @@ class ViewController: UIViewController {
         animateMessageLabel(text: "Please Upload/Take a picture of your face", delay: 3)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     /// Activity Indicator
     private func activityIndicator(_ show: Bool) {
         if show {
@@ -165,6 +170,8 @@ extension ViewController: UnicornSelectionDelegateProtocol {
         if let _ = originalImage {
             self.editedImage = nil
             self.processImage()
+        } else {
+            animateMessageLabel(text: "Please Upload/Take a picture of your face")
         }
     }
 }
