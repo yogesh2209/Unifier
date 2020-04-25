@@ -88,6 +88,9 @@ class ViewController: UIViewController {
     /// boolean to avoid updating image again and again at same time
     var isUpdatingImage: Bool = false
     
+    ///  Boolean to avoid label animation again and again
+    var isLabelAnimating: Bool = false
+    
     /// Should Save Image - gets true when image gets edited properly
     var shouldSaveImage: Bool = false {
         didSet {
@@ -106,6 +109,8 @@ class ViewController: UIViewController {
     
     /// fade animator
     var messageLabelFadeAnimator: UIViewPropertyAnimator? = nil
+    
+    static var compressionPercentage: CGFloat = 0.35
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,7 +143,7 @@ class ViewController: UIViewController {
         viewController.view.backgroundColor = .clear
         viewController.delegate = self
         viewController.selectedImage = selectedUnicornImage
-        viewController.modalPresentationStyle = .overCurrentContext
+        viewController.modalPresentationStyle = .pageSheet
         present(viewController, animated: true, completion: nil)
     }
     
@@ -169,7 +174,7 @@ extension ViewController: UnicornSelectionDelegateProtocol {
 extension ViewController {
     
     @IBAction func infoButtonPressed(_ sender: Any) {
-        let infoAlert = UIAlertController.noActionPrompt(title: "About UniFier", message: "This app is designed for Unicorn lovers. People that love unicorn horn. It UNI-FIES you for the rest of your life by adding a unicorn horn on your forehead.") {
+        let infoAlert = UIAlertController.noActionPrompt(title: "About UniFier", message: "This app is designed for Unicorn lovers, People that love unicorn horn. It Uni-Fies you for the rest of your life by adding a unicorn horn on your forehead.") {
             // do nothing
         }
         
@@ -238,15 +243,27 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        if let editedImage = info[.editedImage] as? UIImage {
+        if var editedImage = info[.editedImage] as? UIImage {
+            
+            if let compressedImage = editedImage.resized(withPercentage: ViewController.compressionPercentage) {
+                editedImage = compressedImage
+            }
+            
             originalImage = editedImage
             imageView.image = editedImage
+            
             picker.dismiss(animated: true, completion: { [weak self] in
                 self?.processImage()
             })
-        } else if let image = info[.originalImage] as? UIImage {
+        } else if var image = info[.originalImage] as? UIImage {
+            
+            if let compressedImage = image.resized(withPercentage: ViewController.compressionPercentage) {
+                image = compressedImage
+            }
+            
             originalImage = image
             imageView.image = originalImage
+            
             picker.dismiss(animated: true, completion: {
                 DispatchQueue.main.async { [weak self] in
                     self?.processImage()
@@ -334,10 +351,12 @@ extension ViewController {
     
     private func animateMessageLabel(text: String, delay: Double = 1, completion: (()->Void)? = nil) {
         
-        guard !(messageLabelFadeAnimator?.isRunning ?? false) else {
+        guard !isLabelAnimating else {
             completion?()
             return
         }
+        
+        isLabelAnimating = true
         
         messageLabel.text = text
         messageLabel.sizeToFit()
@@ -355,7 +374,8 @@ extension ViewController {
                 
                 self?.messageContainerView.alpha = 0.0
                 
-            }) { (pos) in
+            }) { [weak self] (pos) in
+                self?.isLabelAnimating = false
                 completion?()
             }
         }

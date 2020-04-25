@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Gtd-9q-LlO">
-                                <rect key="frame" x="0.0" y="110" width="414" height="786"/>
+                                <rect key="frame" x="0.0" y="126" width="414" height="770"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="l68-42-bad">
                                     <size key="itemSize" width="119" height="107"/>
@@ -56,46 +56,65 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMA-vA-FTL">
-                                <rect key="frame" x="324" y="44" width="90" height="50"/>
+                                <rect key="frame" x="324" y="60" width="90" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4xh-1a-G5b"/>
-                                    <constraint firstAttribute="width" constant="90" id="Q2u-1A-2RD"/>
+                                    <constraint firstAttribute="width" constant="90" id="Q2u-1A-2RD">
+                                        <variation key="widthClass=regular" constant="150"/>
+                                    </constraint>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Select"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Select">
+                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <variation key="widthClass=regular">
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                </variation>
                                 <connections>
                                     <action selector="selectButtonPressed:" destination="BS1-a7-7SP" eventType="touchUpInside" id="tdE-aZ-NhH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHi-Ex-Ofc">
-                                <rect key="frame" x="0.0" y="44" width="90" height="50"/>
+                                <rect key="frame" x="0.0" y="60" width="90" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1HP-8I-hr8"/>
-                                    <constraint firstAttribute="width" constant="90" id="C4R-iY-52z"/>
+                                    <constraint firstAttribute="width" constant="90" id="C4R-iY-52z">
+                                        <variation key="widthClass=regular" constant="150"/>
+                                    </constraint>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Cancel"/>
+                                <variation key="widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                </variation>
                                 <connections>
                                     <action selector="cancelButtonPressed:" destination="BS1-a7-7SP" eventType="touchUpInside" id="tpz-Z0-gyD"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Unicorn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiI-eN-pAC">
-                                <rect key="frame" x="98" y="60" width="218" height="18"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <rect key="frame" x="98" y="73" width="218" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JiI-eN-pAC" firstAttribute="leading" secondItem="pHi-Ex-Ofc" secondAttribute="trailing" constant="8" id="4FZ-AH-vSb"/>
                             <constraint firstItem="Gtd-9q-LlO" firstAttribute="trailing" secondItem="jSl-7e-Dc1" secondAttribute="trailing" id="EFp-i5-KrL"/>
-                            <constraint firstItem="pHi-Ex-Ofc" firstAttribute="top" secondItem="jSl-7e-Dc1" secondAttribute="top" id="GCk-Y5-MGG"/>
+                            <constraint firstItem="pHi-Ex-Ofc" firstAttribute="top" secondItem="jSl-7e-Dc1" secondAttribute="top" constant="16" id="GCk-Y5-MGG">
+                                <variation key="widthClass=regular" constant="32"/>
+                            </constraint>
                             <constraint firstItem="wMA-vA-FTL" firstAttribute="trailing" secondItem="jSl-7e-Dc1" secondAttribute="trailing" id="Gf7-Ea-eF9"/>
                             <constraint firstItem="pHi-Ex-Ofc" firstAttribute="leading" secondItem="jSl-7e-Dc1" secondAttribute="leading" id="XsN-fF-zBP"/>
                             <constraint firstItem="Gtd-9q-LlO" firstAttribute="leading" secondItem="jSl-7e-Dc1" secondAttribute="leading" id="Yy2-Db-q8C"/>
                             <constraint firstItem="JiI-eN-pAC" firstAttribute="centerY" secondItem="wMA-vA-FTL" secondAttribute="centerY" id="b4r-NK-4MO"/>
-                            <constraint firstItem="Gtd-9q-LlO" firstAttribute="top" secondItem="pHi-Ex-Ofc" secondAttribute="bottom" constant="16" id="iwL-DG-olw"/>
+                            <constraint firstItem="Gtd-9q-LlO" firstAttribute="top" secondItem="pHi-Ex-Ofc" secondAttribute="bottom" constant="16" id="iwL-DG-olw">
+                                <variation key="widthClass=regular" constant="48"/>
+                            </constraint>
                             <constraint firstAttribute="bottom" secondItem="Gtd-9q-LlO" secondAttribute="bottom" id="tYp-L7-gEy"/>
                             <constraint firstItem="wMA-vA-FTL" firstAttribute="centerY" secondItem="pHi-Ex-Ofc" secondAttribute="centerY" id="uhA-p4-gbN"/>
                             <constraint firstItem="wMA-vA-FTL" firstAttribute="leading" secondItem="JiI-eN-pAC" secondAttribute="trailing" constant="8" id="z5K-aY-7dC"/>

@@ -116,8 +116,13 @@ extension UnicornSelectionListViewController: UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        var itemsPerRow: CGFloat = 3
+        if UIDevice.isIPad {
+            itemsPerRow = 4
+        }
+        
         let totalWidth = collectionView.frame.width
-        let cellWidth = totalWidth / 3
+        let cellWidth = totalWidth / itemsPerRow
         
         return CGSize(width: cellWidth, height: cellWidth)
     }

@@ -15,9 +15,7 @@
 		6C1FA0E52442978F00E419EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C1FA0E42442978F00E419EB /* Assets.xcassets */; };
 		6C1FA0E82442978F00E419EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1FA0E62442978F00E419EB /* LaunchScreen.storyboard */; };
 		6C1FA0F02443E0BA00E419EB /* FaceLandmarksDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA0EF2443E0BA00E419EB /* FaceLandmarksDetector.swift */; };
-		6C1FA0F32443E2FF00E419EB /* UIImage+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA0F22443E2FF00E419EB /* UIImage+Init.swift */; };
 		6C1FA0F52443E32D00E419EB /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA0F42443E32D00E419EB /* UIImage+Rotate.swift */; };
-		6C1FA0F72443E36000E419EB /* UIImage+Misclaneous .swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA0F62443E36000E419EB /* UIImage+Misclaneous .swift */; };
 		6C1FA0F92443E4A400E419EB /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA0F82443E4A400E419EB /* CGPoint+Distance.swift */; };
 		6C1FA0FB2443E4EA00E419EB /* CGPoint+TriangleThirdVertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA0FA2443E4EA00E419EB /* CGPoint+TriangleThirdVertex.swift */; };
 		6C1FA0FD2443F65B00E419EB /* UIAlert+OpenCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA0FC2443F65B00E419EB /* UIAlert+OpenCamera.swift */; };
@@ -27,6 +25,7 @@
 		6C1FA1052445596E00E419EB /* UnicornSelectionListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1FA1042445596E00E419EB /* UnicornSelectionListViewController.storyboard */; };
 		6C1FA1072445598500E419EB /* UnicornSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA1062445598500E419EB /* UnicornSelectionCollectionViewCell.swift */; };
 		6C1FA1092445773600E419EB /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1FA1082445773600E419EB /* UIView+Blur.swift */; };
+		6C8E808C245406B300F725F4 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E808B245406B300F725F4 /* UIImage+Resize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,9 +39,7 @@
 		6C1FA0E72442978F00E419EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C1FA0E92442978F00E419EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1FA0EF2443E0BA00E419EB /* FaceLandmarksDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceLandmarksDetector.swift; sourceTree = "<group>"; };
-		6C1FA0F22443E2FF00E419EB /* UIImage+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Init.swift"; sourceTree = "<group>"; };
 		6C1FA0F42443E32D00E419EB /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
-		6C1FA0F62443E36000E419EB /* UIImage+Misclaneous .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Misclaneous .swift"; sourceTree = "<group>"; };
 		6C1FA0F82443E4A400E419EB /* CGPoint+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
 		6C1FA0FA2443E4EA00E419EB /* CGPoint+TriangleThirdVertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+TriangleThirdVertex.swift"; sourceTree = "<group>"; };
 		6C1FA0FC2443F65B00E419EB /* UIAlert+OpenCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+OpenCamera.swift"; sourceTree = "<group>"; };
@@ -52,6 +49,7 @@
 		6C1FA1042445596E00E419EB /* UnicornSelectionListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UnicornSelectionListViewController.storyboard; sourceTree = "<group>"; };
 		6C1FA1062445598500E419EB /* UnicornSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnicornSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		6C1FA1082445773600E419EB /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
+		6C8E808B245406B300F725F4 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,15 +102,14 @@
 		6C1FA0F12443E2E700E419EB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6C1FA0F22443E2FF00E419EB /* UIImage+Init.swift */,
 				6C1FA0F42443E32D00E419EB /* UIImage+Rotate.swift */,
-				6C1FA0F62443E36000E419EB /* UIImage+Misclaneous .swift */,
 				6C1FA0F82443E4A400E419EB /* CGPoint+Distance.swift */,
 				6C1FA0FA2443E4EA00E419EB /* CGPoint+TriangleThirdVertex.swift */,
 				6C1FA0FC2443F65B00E419EB /* UIAlert+OpenCamera.swift */,
 				6C1FA0FE2443F79300E419EB /* UIDevice+iPad.swift */,
 				6C1FA1002443FD6800E419EB /* UIImagePickerController+PopOver.swift */,
 				6C1FA1082445773600E419EB /* UIView+Blur.swift */,
+				6C8E808B245406B300F725F4 /* UIImage+Resize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -193,12 +190,11 @@
 				6C1FA0DD2442978E00E419EB /* ViewController.swift in Sources */,
 				6C1FA0D92442978E00E419EB /* AppDelegate.swift in Sources */,
 				6C1FA0E32442978E00E419EB /* Unifier.xcdatamodeld in Sources */,
-				6C1FA0F72443E36000E419EB /* UIImage+Misclaneous .swift in Sources */,
 				6C1FA1092445773600E419EB /* UIView+Blur.swift in Sources */,
 				6C1FA1012443FD6800E419EB /* UIImagePickerController+PopOver.swift in Sources */,
 				6C1FA0FF2443F79300E419EB /* UIDevice+iPad.swift in Sources */,
-				6C1FA0F32443E2FF00E419EB /* UIImage+Init.swift in Sources */,
 				6C1FA1032445596400E419EB /* UnicornSelectionListViewController.swift in Sources */,
+				6C8E808C245406B300F725F4 /* UIImage+Resize.swift in Sources */,
 				6C1FA1072445598500E419EB /* UnicornSelectionCollectionViewCell.swift in Sources */,
 				6C1FA0F92443E4A400E419EB /* CGPoint+Distance.swift in Sources */,
 				6C1FA0F02443E0BA00E419EB /* FaceLandmarksDetector.swift in Sources */,
