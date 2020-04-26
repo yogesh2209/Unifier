@@ -191,7 +191,7 @@ extension ViewController: UnicornSelectionDelegateProtocol {
 extension ViewController {
     
     @IBAction func infoButtonPressed(_ sender: Any) {
-        let infoAlert = UIAlertController.noActionPrompt(title: "About UniFier", message: "This app is designed for Unicorn lovers, People that love unicorn horn. It Uni-Fies you for the rest of your life by adding a unicorn horn on your forehead.") {
+        let infoAlert = UIAlertController.noActionPrompt(title: "About UniFier", message: "This app is for Unicorn lovers, People that love unicorn horn. It Uni-Fies you for the rest of your life by adding a unicorn horn on your forehead.") {
             // do nothing
         }
         
