@@ -88,8 +88,11 @@ class ViewController: UIViewController {
     /// boolean to avoid updating image again and again at same time
     var isUpdatingImage: Bool = false
     
-    ///  Boolean to avoid label animation again and again
+    /// Boolean to avoid label animation again and again
     var isLabelAnimating: Bool = false
+    
+    /// Boolean to avoid processing image if there is no face on it
+    var faceDetected: Bool = false
     
     /// Should Save Image - gets true when image gets edited properly
     var shouldSaveImage: Bool = false {
@@ -165,7 +168,14 @@ class ViewController: UIViewController {
 //MARK: - UnicornSelectionDelegateProtocol
 extension ViewController: UnicornSelectionDelegateProtocol {
     func didSelect(image: String) {
+        
         setImage(image: image)
+        
+        guard faceDetected else {
+            animateMessageLabel(text: "Please Upload/Take a picture of your face")
+            return
+        }
+        
         /// we have an original image - process it
         if let _ = originalImage {
             self.editedImage = nil
@@ -260,7 +270,9 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             imageView.image = editedImage
             
             picker.dismiss(animated: true, completion: { [weak self] in
-                self?.processImage()
+                DispatchQueue.main.async { [weak self] in
+                    self?.processImage()
+                }
             })
         } else if var image = info[.originalImage] as? UIImage {
             
@@ -294,10 +306,15 @@ extension ViewController {
     
     func handleFaceFeatures(request: VNRequest, errror: Error?) {
         guard let observations = request.results as? [VNFaceObservation], !observations.isEmpty, let imageToSend = originalImage else {
+            isUpdatingImage = false
+            faceDetected = false
             animateMessageLabel(text: "No Face detected")
             activityIndicator(false)
             return
         }
+        
+        /// set face detected to true
+        faceDetected = true
         
         activityIndicator(true)
         let finalImage = faceDetector?.addFaceLandmarksToImage(observations, sourceImage: imageToSend, isFaceLinesShown: isFaceLinesShown, selectedUnicornImage: selectedUnicornImage)
