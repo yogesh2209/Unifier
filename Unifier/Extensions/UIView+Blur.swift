@@ -3,7 +3,7 @@
 //  Unifier
 //
 //  Created by Kohli, Yogesh on 4/13/20.
-//  Copyright © 2020 CBS. All rights reserved.
+//  Copyright © 2020. All rights reserved.
 //
 
 import UIKit
